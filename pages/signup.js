@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
 import { LockClosedIcon } from "@heroicons/react/solid";
-
+import showPass from "../javascripts/validate";
 export default function Login() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -23,7 +23,9 @@ export default function Login() {
     // e.preventDefault();
      setPassword(e.target.value)
   }
- 
+  useEffect(()=>{
+    showPass()
+  },[])
  
   const handleSubmit = (e) => {
     const data = {
@@ -125,6 +127,7 @@ export default function Login() {
               >
                 Password
               </label>
+              <div className='w-full flex items-center relative'> 
               <input
                 id="password"
                 name="password"
@@ -149,6 +152,10 @@ export default function Login() {
                 sm:text-sm"
                 placeholder="Password"
               />
+               <div className='absolute right-0 showIconPass flex items-center justify-center'>
+              <i className="far fa-eye " id="togglePassword"></i>
+              </div>
+              </div>
             </div>
           </div>
 
