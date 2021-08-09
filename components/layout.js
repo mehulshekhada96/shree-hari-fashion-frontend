@@ -14,7 +14,7 @@ export default function Layout({children}) {
   />
       </Head>
       <Navbar />
-      <section className='container mx-auto lg:px-5 px-5'>
+      <section className='container max-w-7xl mx-auto px-4 sm:px-6'>
       {children}
       </section>
     </>

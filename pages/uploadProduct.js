@@ -1,7 +1,15 @@
+import Form from "../components/form";
+
+
+
+
 export default function uploadProduct(){
     return (
         <>
-        This is upload product page
+          <Form path='/uploadProduct' /> 
+          
+    
+          
         </>
     )
 }

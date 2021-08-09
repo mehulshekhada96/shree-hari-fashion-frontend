@@ -1,5 +1,7 @@
 function About() {
-    return <div>About Me</div>
+    return <div>
+      <input type='checkbox' />
+    </div>
   }
   
   export default About
