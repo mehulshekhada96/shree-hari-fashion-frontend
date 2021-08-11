@@ -7,7 +7,9 @@ export default function FormInput({
   onChange,
   options,
   data,
-  setData
+  setData,
+  fileUploadHandler,
+  handleUpload
 }) {
   if (type === "select") {
     return (
@@ -29,7 +31,11 @@ export default function FormInput({
         >
           {options.map((opt, index) => (
             <>
-              <option key={`${name}-${index}`} value={opt} className="capitalize">
+              <option
+                key={`${name}-${index}`}
+                value={opt}
+                className="capitalize"
+              >
                 {opt}
               </option>
             </>
@@ -40,37 +46,29 @@ export default function FormInput({
   }
   if (type === "checkbox") {
     const [checkedState, setCheckedState] = useState(
-        new Array(options.length).fill(false)
-      );
-    
-      
-    
-      const handleOnChange = (position) => {
-        const updatedCheckedState = checkedState.map((item, index) =>
-          index === position ? !item : item
-        );
-    
-        setCheckedState(updatedCheckedState);
-        console.log(1,updatedCheckedState);
-        console.log(2,checkedState)
-        const arr = [];
-        const finalArr = updatedCheckedState.forEach(
-          ( currentState, index) => {
-            if (currentState === true) {
-               arr.push(options[index])
-            }
-            
-          }
-      
-        );
-      console.log(arr)
-      setData(Object.assign(data,{[name]:arr} ) )
-      };
+      new Array(options.length).fill(false)
+    );
 
+    const handleOnChange = (position) => {
+      const updatedCheckedState = checkedState.map((item, index) =>
+        index === position ? !item : item
+      );
+
+      setCheckedState(updatedCheckedState);
+      console.log(1, updatedCheckedState);
+      console.log(2, checkedState);
+      const arr = [];
+      const finalArr = updatedCheckedState.forEach((currentState, index) => {
+        if (currentState === true) {
+          arr.push(options[index]);
+        }
+      });
+      console.log(arr);
+      setData(Object.assign(data, { [name]: arr }));
+    };
 
     return (
       <div>
-   
         <label
           htmlFor={name}
           className=" mb-1 font-bold block text-lg text-gray-600"
@@ -84,7 +82,7 @@ export default function FormInput({
               type="checkbox"
               name={name}
               checked={checkedState[index]}
-                    onChange={() => handleOnChange(index)}
+              onChange={() => handleOnChange(index)}
               id={`custom-checkbox-${index}`}
               value={opt}
               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
@@ -101,7 +99,30 @@ export default function FormInput({
       </div>
     );
   }
-
+  if (type === "file") {
+   
+    return (
+      <div>
+        <label
+          htmlFor={name}
+          className=" mb-1 font-bold block text-lg text-gray-600"
+        >
+          {placeholder}
+        </label>
+        <input
+          name={name}
+          id={name}
+          type={type}
+          required
+          // multiple
+          onChange={fileUploadHandler}
+          placeholder={placeholder}
+          className="appearance-none rounded-none  block px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+        />
+        <button onClick={handleUpload}> Upload </button>
+      </div>
+    );
+  }
   return (
     <div>
       <label
@@ -119,7 +140,7 @@ export default function FormInput({
         placeholder={placeholder}
         className="appearance-none rounded-none  block px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
       />
-      {/* {option(type, options)} */}
+     
     </div>
   );
 }

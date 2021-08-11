@@ -2,14 +2,22 @@ import { useState } from "react";
 import FormInput from "../components/formInput";
 import items from "../data/items";
 export default function Form({ path }) {
-   const [data, setData] = useState({})
+   const [data, setData] = useState({});
+   const [selectedFile, setSelectedFile] = useState();
 //    const [checkedItems, setCheckedItems] = ([])
    const changeHandler = (e) => {
         e.preventDefault();
         const { value, name } = e.target
         setData(Object.assign(data,{[name]:value} ) )
    }
-
+   const fileUploadHandler = (e) => {
+    setSelectedFile(e.target.files[0]);
+  }
+    const handleUpload = (e)=>{
+      e.preventDefault();
+      
+      // setData(Object.assign(data,{'images':selectedFile}))
+    }
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`http://localhost:5050${path}`, {
@@ -38,11 +46,13 @@ export default function Form({ path }) {
               placeholder={item.placeholder}
               type={item.type}
               onChange={changeHandler}
+              fileUploadHandler = {fileUploadHandler}
               data={data}
               setData = {setData}
               key={index}
               val={item.val}
               options={item.options}
+              handleUpload={handleUpload}
             />
           )})}
         </div>
